@@ -1,73 +1,13 @@
-
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>圣经小测验：认识主的心意</title>
-    <meta name="description" content="5题圣经小测验，答完有鼓励语和加微信提示。">
-    <style>
-        body {
-            font-family: "Arial", sans-serif;
-            margin: 2em auto;
-            max-width: 700px;
-            background-color: #fefefe;
-            color: #333;
-            line-height: 1.8;
-        }
-        h1 {
-            color: #336699;
-        }
-        .question {
-            margin-bottom: 1.5em;
-        }
-        .submit-btn {
-            background-color: #336699;
-            color: white;
-            border: none;
-            padding: 0.5em 1em;
-            font-size: 1em;
-            cursor: pointer;
-        }
-        .result {
-            margin-top: 2em;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-    <h1>圣经小测验：认识主的心意</h1>
-    <form id="quizForm">
-        <div class="question">
-            <p>1. 亚伯拉罕愿意献以撒，表达了什么？</p>
-            <label><input type="radio" name="q1" value="A"> 对神的完全信靠</label><br>
-            <label><input type="radio" name="q1" value="B"> 惧怕神的惩罚</label><br>
-            <label><input type="radio" name="q1" value="C"> 想证明自己</label>
-        </div>
-        <div class="question">
-            <p>2. 耶稣在十字架上说“成了”，表示？</p>
-            <label><input type="radio" name="q2" value="A"> 他要离开世界了</label><br>
-            <label><input type="radio" name="q2" value="B"> 救赎的工作已经完成</label><br>
-            <label><input type="radio" name="q2" value="C"> 一切都结束了</label>
-        </div>
-        <button type="button" class="submit-btn" onclick="submitQuiz()">提交答案</button>
-    </form>
-
-    <div class="result" id="result" style="display:none;"></div>
-
-    <script>
-        function submitQuiz() {
-            let score = 0;
-            if (document.querySelector('input[name="q1"]:checked')?.value === 'A') score++;
-            if (document.querySelector('input[name="q2"]:checked')?.value === 'B') score++;
-
-            let result = document.getElementById("result");
-            result.style.display = "block";
-            if (score === 2) {
-                result.innerHTML = "👏 太棒了！你真的很明白神的心意！🎁 请截图结果，加微信领取小礼物 👉<br><img src='weixin-qr.png' alt='加微信' width='150'>";
-            } else {
-                result.innerHTML = "你得了 " + score + " 分。继续加油哦～ 重新读一读经文，再试试看！";
-            }
-        }
-    </script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
