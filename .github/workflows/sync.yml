@@ -2,8 +2,8 @@ name: Sync Notion and Deploy
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # 每天北京时间上午10点（UTC+2）
-  workflow_dispatch:     # 允许手动触发
+    - cron: '0 2 * * *'  # 每天北京时间上午10点（UTC+8）
+  workflow_dispatch:     # 手动触发支持
 
 jobs:
   sync:
@@ -17,16 +17,16 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install deps
+      - name: Install dependencies
         run: npm install
 
-      - name: Run fetch script
+      - name: Fetch Notion data
         run: node notion/fetch.js
 
-      - name: Commit & Push
+      - name: Commit & Push if changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add notion/data/
-          git commit -m "chore: sync Notion data [auto]" || exit 0
+          git commit -m "chore: auto sync Notion data" || echo "no changes"
           git push
