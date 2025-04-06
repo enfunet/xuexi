@@ -1,0 +1,46 @@
+---
+// Layout.astro
+---
+
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>内容中心</title>
+  </head>
+  <body style="margin: 0; font-family: sans-serif; padding-bottom: 80px;">
+    <slot />
+
+    <!-- ✅ 弹窗容器 -->
+    <div id="popup" style="display:none; position: fixed; top: 20%; left: 50%; transform: translateX(-50%); background: white; border: 1px solid #ccc; padding: 20px; z-index: 999;">
+      <p id="popup-text">弹窗内容</p>
+      <button onclick="document.getElementById('popup').style.display='none'">关闭</button>
+    </div>
+
+    <!-- ✅ 底部导航栏 -->
+    <footer style="position: fixed; bottom: 0; left: 0; right: 0; background: #fff0e5; padding: 10px; display: flex; justify-content: space-around; border-top: 1px solid #ddd; z-index: 1000;">
+      <a href="/">🏠 首页</a>
+      <a href="#" id="wechatBtn">💬 加微信</a>
+      <a href="#" id="donateBtn">❤️ 赞赏</a>
+    </footer>
+
+    <!-- ✅ JS 脚本必须使用 is:inline -->
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', function () {
+        const popup = document.getElementById('popup');
+        const popupText = document.getElementById('popup-text');
+
+        document.getElementById('wechatBtn')?.addEventListener('click', () => {
+          popupText.textContent = '这里是微信二维码（你可以放一张图片）';
+          popup.style.display = 'block';
+        });
+
+        document.getElementById('donateBtn')?.addEventListener('click', () => {
+          popupText.textContent = '这里是赞赏二维码';
+          popup.style.display = 'block';
+        });
+      });
+    </script>
+  </body>
+</html>

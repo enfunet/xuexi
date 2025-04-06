@@ -1,0 +1,45 @@
+---
+import fs from 'fs';
+import path from 'path';
+import { Astro } from 'astro';
+
+// ✅ 静态路径生成器
+export async function getStaticPaths() {
+  const dataPath = path.resolve('./notion/data/all.json');
+  const raw = fs.readFileSync(dataPath, 'utf-8');
+  const posts = JSON.parse(raw);
+
+  const categories = [...new Set(posts.map(p => p.category))];
+
+  return categories.map(category => ({
+    params: { category },
+  }));
+}
+
+// ✅ 正常页面渲染逻辑
+const dataPath = path.resolve('./notion/data/all.json');
+const raw = fs.readFileSync(dataPath, 'utf-8');
+const posts = JSON.parse(raw);
+
+const { params } = Astro;
+const category = decodeURIComponent(params.category);
+const filtered = posts.filter(post => post.category === category);
+---
+
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{category} | 栏目页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <h1>{category}</h1>
+    {filtered.map(post => (
+      <div>
+        <h3>{post.title}</h3>
+        <p>{post.subcategory} - {post.date}</p>
+      </div>
+    ))}
+    <a href="/">← 返回首页</a>
+  </body>
+</html>

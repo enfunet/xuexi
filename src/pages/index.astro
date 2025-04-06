@@ -1,0 +1,86 @@
+---
+import fs from 'fs';
+import path from 'path';
+
+const dataPath = path.resolve('./notion/data/all.json');
+const raw = fs.readFileSync(dataPath, 'utf-8');
+const posts = JSON.parse(raw);
+
+// 分类分组
+const grouped = {};
+for (const post of posts) {
+  const category = post.category || '未分类';
+  if (!grouped[category]) grouped[category] = [];
+  grouped[category].push(post);
+}
+---
+
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Notion 内容主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #fffaf3;
+        padding: 1rem;
+        font-size: 18px;
+      }
+      h1 {
+        color: #e86a24;
+        font-size: 28px;
+        margin-bottom: 1rem;
+      }
+      .category {
+        margin-top: 2rem;
+      }
+      .card {
+        display: flex;
+        gap: 1rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        overflow: hidden;
+        margin-bottom: 1rem;
+      }
+      .card img {
+        width: 120px;
+        height: 90px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+      .card-content {
+        padding: 0.5rem 1rem;
+      }
+      .card-content h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #333;
+      }
+      .card-content p {
+        margin: 0.3rem 0;
+        font-size: 14px;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>欢迎来到内容中心</h1>
+    {Object.keys(grouped).map(category => (
+      <div class="category">
+        <h2><a href={`/category/${category}`} style="color: #e86a24; text-decoration: none;">{category}</a></h2>
+        {grouped[category].map(post => (
+          <div class="card">
+            <img src={post.cover ?? "https://via.placeholder.com/120x90"} alt="封面图" />
+            <div class="card-content">
+              <h3><a href={`/post/${post.id}`}>{post.title}</a></h3>
+              <p>子分类：{post.subcategory}</p>
+              <p>日期：{post.date}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    ))}
+  </body>
+</html>
