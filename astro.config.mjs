@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  base: '/xuexi/',     // 仓库名一定要正确！
+  base: '/',                 // ✅ Cloudflare 不需要子路径
   output: 'static',
-  trailingSlash: 'always' // ✅ 解决刷新 404 问题
+  trailingSlash: 'always'   // ✅ 防止刷新 404
 });
