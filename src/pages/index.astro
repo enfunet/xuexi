@@ -64,7 +64,7 @@ for (const post of posts) {
 {Object.keys(grouped).map(category => (
   <div class="category">
     <h2>
-      <a href={`${Astro.base}/category/${category}`} style="color: #e86a24; text-decoration: none;">
+      <a href={`/xuexi/category/${category}`} style="color: #e86a24; text-decoration: none;">
         {category}
       </a>
     </h2>
@@ -73,7 +73,7 @@ for (const post of posts) {
         <img src={post.cover ?? "https://via.placeholder.com/120x90"} alt="封面图" />
         <div class="card-content">
           <h3>
-            <a href={`${Astro.base}/post/${post.id}`}>{post.title}</a>
+            <a href={`/xuexi/post/${post.id}`}>{post.title}</a>
           </h3>
           <p>子分类：{post.subcategory}</p>
           <p>日期：{post.date}</p>
