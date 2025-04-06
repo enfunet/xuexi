@@ -2,6 +2,14 @@
 import fs from 'fs';
 import path from 'path';
 import { Astro } from 'astro';
+import postData from '../../../notion/data/post.json';
+
+export async function getStaticPaths() {
+  return postData.map((post) => ({
+    params: { id: post.id }  // 用 ID 作为路由参数
+  }));
+}
+
 
 // ✅ 告诉 Astro 所有文章 ID → 用于生成静态页面
 export async function getStaticPaths() {

@@ -2,6 +2,15 @@
 import fs from 'fs';
 import path from 'path';
 import { Astro } from 'astro';
+import postData from '../../../notion/data/post.json';
+
+export async function getStaticPaths() {
+  const categories = [...new Set(postData.map(post => post.category))];
+  return categories.map((category) => ({
+    params: { category }
+  }));
+}
+
 
 // ✅ 静态路径生成器
 export async function getStaticPaths() {
