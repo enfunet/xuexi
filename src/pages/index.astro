@@ -69,12 +69,12 @@ for (const post of posts) {
     <h1>欢迎来到内容中心</h1>
     {Object.keys(grouped).map(category => (
       <div class="category">
-        <h2><a href={`/category/${category}`} style="color: #e86a24; text-decoration: none;">{category}</a></h2>
+        <h2><a href={`${Astro.base}/category/${item.category}`} style="color: #e86a24; text-decoration: none;">{category}</a></h2>
         {grouped[category].map(post => (
           <div class="card">
             <img src={post.cover ?? "https://via.placeholder.com/120x90"} alt="封面图" />
             <div class="card-content">
-              <h3><a href={`/post/${post.id}`}>{post.title}</a></h3>
+              <h3><a href={`${Astro.base}/post/${item.id}`}>...</a></h3>
               <p>子分类：{post.subcategory}</p>
               <p>日期：{post.date}</p>
             </div>
