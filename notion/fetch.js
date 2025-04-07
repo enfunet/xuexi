@@ -26,8 +26,7 @@ async function fetchPages() {
   return pages;
 }
 
-
-
+// 将 rich_text 转换为 HTML
 function richTextToHTML(richText) {
   return richText.map(t => {
     let text = t.plain_text || "";
@@ -59,6 +58,7 @@ const colorMap = {
   purple_background: "#f3e5f5", pink_background: "#ffe0f0"
 };
 
+// 渲染块内容
 async function renderBlock(block) {
   const { type } = block;
   const text = block[type]?.rich_text || [];
@@ -99,13 +99,12 @@ async function renderBlock(block) {
   }
 }
 
-
+// 获取页面内容
 async function fetchContent(blockId) {
   const blocks = await notion.blocks.children.list({ block_id: blockId });
   const htmlBlocks = await Promise.all(blocks.results.map(renderBlock));
   return htmlBlocks.join('\n');
 }
-
 
 async function run() {
   const pages = await fetchPages();
@@ -122,6 +121,7 @@ async function run() {
     parsed.push({
       id: page.id,
       title: props.Title?.title?.[0]?.plain_text || "无标题",
+      description: props.Description?.rich_text?.[0]?.text.content || "", // 添加 Description 字段
       category: props.Category?.select?.name || "未分类",
       subcategory: props.SubCategory?.select?.name || "",
       status,
