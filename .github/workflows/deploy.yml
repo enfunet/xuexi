@@ -28,5 +28,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages  # Deploy to gh-pages branch
-          folder: dist  # Folder where the build output is located
+          branch: gh-pages  # 将部署分支改为 gh-pages
+          folder: dist  # 这取决于您构建输出的文件夹
